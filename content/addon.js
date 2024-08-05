@@ -111,15 +111,13 @@ let Addon = {
 		} else if (Services.appinfo.name != "SeaMonkey" && Services.appinfo.name != "Iceape-UXP") {
 			appver = Services.appinfo.version;
 		}
-		data.downurl = "https://ca-archive.us.to/storage/" + Math.trunc(dbQuery.row.addon_id/1000) + "/" + dbQuery.row.addon_id + "/" + dbQuery.row.url.replace(/^\d+\/(.*)/,"$1") + "?origin=caa&action=";
+		data.downurl = "https://ca-archive.us.to/storage/" + Math.trunc(dbQuery.row.addon_id/1000) + "/" + dbQuery.row.addon_id + "/" + dbQuery.row.url.replace(/^\d+\/(.*)/,"$1");
 		if (appver && Services.vc.compare(dbQuery.row.min, appver) <= 0 && Services.vc.compare(appver, dbQuery.row.max) <= 0) {
 			data.compat = "add";
 			data.action = "Install Now";
-			data.downurl += "install";
 		} else {
 			data.compat = "download";
 			data.action = "Download";
-			data.downurl += "download";
 		}
 		let created = new Date(dbQuery.row.created*1000);
 		data.created = created.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
